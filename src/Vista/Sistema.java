@@ -120,8 +120,9 @@ public class Sistema extends javax.swing.JFrame {
         txtIdPro = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jButton22 = new javax.swing.JButton();
+        TableVentas = new javax.swing.JTable();
+        btnPdfVentas = new javax.swing.JButton();
+        txtIdVenta = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
@@ -810,7 +811,7 @@ public class Sistema extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab4", jPanel6);
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        TableVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -818,15 +819,15 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "CLIENTE", "VENDEDOR", "TOTAL"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
-        if (jTable5.getColumnModel().getColumnCount() > 0) {
-            jTable5.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable5.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jTable5.getColumnModel().getColumn(2).setPreferredWidth(60);
-            jTable5.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jScrollPane5.setViewportView(TableVentas);
+        if (TableVentas.getColumnModel().getColumnCount() > 0) {
+            TableVentas.getColumnModel().getColumn(0).setPreferredWidth(20);
+            TableVentas.getColumnModel().getColumn(1).setPreferredWidth(60);
+            TableVentas.getColumnModel().getColumn(2).setPreferredWidth(60);
+            TableVentas.getColumnModel().getColumn(3).setPreferredWidth(60);
         }
 
-        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pdf.png"))); // NOI18N
+        btnPdfVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pdf.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -836,16 +837,24 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton22)
+                        .addComponent(btnPdfVentas)
+                        .addGap(52, 52, 52)
+                        .addComponent(txtIdVenta)
                         .addContainerGap())
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jButton22)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(btnPdfVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtIdVenta)
+                        .addGap(25, 25, 25)))
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
         );
 
@@ -1035,6 +1044,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TableProducto;
     private javax.swing.JTable TableProveedor;
     private javax.swing.JTable TableVenta;
+    private javax.swing.JTable TableVentas;
     private javax.swing.JButton btnActualizarProveedor;
     private javax.swing.JButton btnEditarCliente;
     private javax.swing.JButton btnEditarPro;
@@ -1050,10 +1060,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoCliente;
     private javax.swing.JButton btnNuevoPro;
     private javax.swing.JButton btnNuevoProveedor;
+    private javax.swing.JButton btnPdfVentas;
     private javax.swing.JComboBox<String> cbxProveedorPro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1104,7 +1114,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField22;
     private javax.swing.JTextField jTextField23;
     private javax.swing.JTextField jTextField24;
@@ -1123,6 +1132,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel txtIdCliente;
     private javax.swing.JLabel txtIdPro;
     private javax.swing.JLabel txtIdProveedor;
+    private javax.swing.JLabel txtIdVenta;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreClienteVenta;
     private javax.swing.JTextField txtNombreProveedor;
