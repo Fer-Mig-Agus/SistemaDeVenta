@@ -21,14 +21,15 @@ public class Sistema extends javax.swing.JFrame {
 
     Cliente cl = new Cliente();
     ClienteDAO client = new ClienteDAO();
-    Proveedor pr=new Proveedor();
-    ProveedorDAO PrDao=new ProveedorDAO();
+    Proveedor pr = new Proveedor();
+    ProveedorDAO PrDao = new ProveedorDAO();
     DefaultTableModel modelo = new DefaultTableModel();
 
     public Sistema() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtIdCliente.setVisible(false);
+        txtIdProveedor.setVisible(false);
     }
 
     public void ListarCliente() {
@@ -47,7 +48,8 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableCliente.setModel(modelo);
     }
-     public void ListarProveedor() {
+
+    public void ListarProveedor() {
         List<Proveedor> ListaPr = PrDao.ListarProveedor();
         modelo = (DefaultTableModel) TableProveedor.getModel();
         Object[] ob = new Object[6];
@@ -675,6 +677,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btnEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btnEliminarProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProveedorActionPerformed(evt);
+            }
+        });
 
         btnNuevoProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevo.png"))); // NOI18N
         btnNuevoProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -687,6 +694,11 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "RUC", "NOMBRE", "TELÉFONO", "DIRECCIÓN", "RAZON SOCIAL"
             }
         ));
+        TableProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableProveedorMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(TableProveedor);
         if (TableProveedor.getColumnModel().getColumnCount() > 0) {
             TableProveedor.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -1173,30 +1185,33 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarTabla();
                 LimpiarCliente();
                 ListarCliente();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Los campos estan vacios");;
             }
-               
+
         }
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         // TODO add your handling code here:
         LimpiarCliente();
-        
+
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void btnGuardarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProveedorActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtRucProveedor.getText()) || !"".equals(txtNombreProveedor.getText()) || !"".equals(txtTelefonoProveedor.getText()) || !"".equals(txtDireccionProveedor.getText())  || !"".equals(txtRazonProveedor.getText())) {
+        if (!"".equals(txtRucProveedor.getText()) || !"".equals(txtNombreProveedor.getText()) || !"".equals(txtTelefonoProveedor.getText()) || !"".equals(txtDireccionProveedor.getText()) || !"".equals(txtRazonProveedor.getText())) {
             pr.setRuc(Integer.parseInt(txtRucProveedor.getText()));
             pr.setNombre(txtNombreProveedor.getText());
             pr.setTelefono(Integer.parseInt(txtTelefonoProveedor.getText()));
             pr.setDireccion(txtDireccionProveedor.getText());
             pr.setRazon(txtRazonProveedor.getText());
             PrDao.RegistrarProveedor(pr);
-            JOptionPane.showMessageDialog(null, "Se agrego correctamente");;
-        }else{
+            JOptionPane.showMessageDialog(null, "Se agrego correctamente");
+            LimpiarTabla();
+            ListarProveedor();
+            LimpiarProveedor();
+        } else {
             JOptionPane.showMessageDialog(null, "Los campos estan vacios");;
         }
     }//GEN-LAST:event_btnGuardarProveedorActionPerformed
@@ -1206,8 +1221,37 @@ public class Sistema extends javax.swing.JFrame {
         LimpiarTabla();
         ListarProveedor();
         jTabbedPane1.setSelectedIndex(2);
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void TableProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProveedorMouseClicked
+        // TODO add your handling code here:
+        int fila = TableProveedor.rowAtPoint(evt.getPoint());
+
+        txtIdProveedor.setText(TableProveedor.getValueAt(fila, 0).toString());
+        txtRucProveedor.setText(TableProveedor.getValueAt(fila, 1).toString());
+        txtNombreProveedor.setText(TableProveedor.getValueAt(fila, 2).toString());
+        txtTelefonoProveedor.setText(TableProveedor.getValueAt(fila, 3).toString());
+        txtDireccionProveedor.setText(TableProveedor.getValueAt(fila, 4).toString());
+        txtRazonProveedor.setText(TableProveedor.getValueAt(fila, 5).toString());
+
+    }//GEN-LAST:event_TableProveedorMouseClicked
+
+    private void btnEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProveedorActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(txtIdProveedor.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Estas seguro de Elimianr");
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtIdProveedor.getText());
+                PrDao.EliminarProveedor(id);
+                LimpiarTabla();
+                ListarProveedor();
+                LimpiarProveedor();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");;
+        }
+    }//GEN-LAST:event_btnEliminarProveedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1363,6 +1407,15 @@ public class Sistema extends javax.swing.JFrame {
         txtTelefonoCliente.setText("");
         txtDireccionCliente.setText("");
         txtRazonCliente.setText("");
+    }
+
+    private void LimpiarProveedor() {
+        txtIdProveedor.setText("");
+        txtRucProveedor.setText("");
+        txtNombreProveedor.setText("");
+        txtTelefonoProveedor.setText("");
+        txtDireccionProveedor.setText("");
+        txtRazonProveedor.setText("");
     }
 
 }
