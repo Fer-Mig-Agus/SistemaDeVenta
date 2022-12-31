@@ -17,39 +17,40 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Sistema extends javax.swing.JFrame {
 
-    Cliente cl=new Cliente();
-    ClienteDAO client=new ClienteDAO();
-    DefaultTableModel modelo=new DefaultTableModel();
-    
-    
+    Cliente cl = new Cliente();
+    ClienteDAO client = new ClienteDAO();
+    DefaultTableModel modelo = new DefaultTableModel();
+
     public Sistema() {
         initComponents();
         this.setLocationRelativeTo(null);
+        txtIdCliente.setVisible(false);
     }
 
-    public void ListarCliente(){
-        List<Cliente> ListaCl=client.ListaCliente();
-        modelo =(DefaultTableModel) TableCliente.getModel();
-        Object[] ob=new Object[6];
-        for(int i=0; i< ListaCl.size();i++){
-            ob[0]=ListaCl.get(i).getId();
-            ob[1]=ListaCl.get(i).getDni();
-            ob[2]=ListaCl.get(i).getNombre();
-            ob[3]=ListaCl.get(i).getTelefono();
-            ob[4]=ListaCl.get(i).getDireccion();
-            ob[5]=ListaCl.get(i).getRazon();
-            
-            modelo.addRow(ob);   
+    public void ListarCliente() {
+        List<Cliente> ListaCl = client.ListaCliente();
+        modelo = (DefaultTableModel) TableCliente.getModel();
+        Object[] ob = new Object[6];
+        for (int i = 0; i < ListaCl.size(); i++) {
+            ob[0] = ListaCl.get(i).getId();
+            ob[1] = ListaCl.get(i).getDni();
+            ob[2] = ListaCl.get(i).getNombre();
+            ob[3] = ListaCl.get(i).getTelefono();
+            ob[4] = ListaCl.get(i).getDireccion();
+            ob[5] = ListaCl.get(i).getRazon();
+
+            modelo.addRow(ob);
         }
-        TableCliente.setModel(modelo);  
+        TableCliente.setModel(modelo);
     }
-    
-    public void LimpiarTabla(){
-        for(int i=0;i<modelo.getRowCount();i++){
+
+    public void LimpiarTabla() {
+        for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);;
-            i=i-1;
+            i = i - 1;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -518,6 +519,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btnEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Actualizar (2).png"))); // NOI18N
         btnEditarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarClienteActionPerformed(evt);
+            }
+        });
 
         btnEliminarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btnEliminarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -529,6 +535,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btnNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevo.png"))); // NOI18N
         btnNuevoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1064,7 +1075,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void btnGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClienteActionPerformed
-        if(!"".equals(txtDniCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText()) || !"".equals(txtDireccionCliente.getText())){
+        if (!"".equals(txtDniCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText()) || !"".equals(txtDireccionCliente.getText())) {
             cl.setDni(Integer.parseInt(txtDniCliente.getText()));
             cl.setNombre(txtNombreCliente.getText());
             cl.setTelefono(Integer.parseInt(txtTelefonoCliente.getText()));
@@ -1073,11 +1084,11 @@ public class Sistema extends javax.swing.JFrame {
             client.registrarCliente(cl);
             LimpiarTabla();
             ListarCliente();
-            
-            JOptionPane.showMessageDialog(null,"Cliente Registrado");
+
+            JOptionPane.showMessageDialog(null, "Cliente Registrado");
             LimpiarCliente();
-        }else{
-            JOptionPane.showMessageDialog(null,"Los campos estan vacios");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
         }
     }//GEN-LAST:event_btnGuardarClienteActionPerformed
 
@@ -1090,29 +1101,59 @@ public class Sistema extends javax.swing.JFrame {
 
     private void TableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableClienteMouseClicked
         // TODO add your handling code here:
-        int fila=TableCliente.rowAtPoint(evt.getPoint());
-        txtIdCliente.setText(TableCliente.getValueAt(fila,0).toString());
-        txtNombreCliente.setText(TableCliente.getValueAt(fila,1).toString());
-        txtDniCliente.setText(TableCliente.getValueAt(fila,2).toString());
-        txtTelefonoCliente.setText(TableCliente.getValueAt(fila,3).toString());
-        txtDireccionCliente.setText(TableCliente.getValueAt(fila,4).toString());
-        txtRazonCliente.setText(TableCliente.getValueAt(fila,5).toString());
+        int fila = TableCliente.rowAtPoint(evt.getPoint());
+        txtIdCliente.setText(TableCliente.getValueAt(fila, 0).toString());
+        txtDniCliente.setText(TableCliente.getValueAt(fila, 1).toString());
+        txtNombreCliente.setText(TableCliente.getValueAt(fila, 2).toString());
+        txtTelefonoCliente.setText(TableCliente.getValueAt(fila, 3).toString());
+        txtDireccionCliente.setText(TableCliente.getValueAt(fila, 4).toString());
+        txtRazonCliente.setText(TableCliente.getValueAt(fila, 5).toString());
     }//GEN-LAST:event_TableClienteMouseClicked
 
     private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
         // TODO add your handling code here:
-        if(!"".equals(txtIdCliente.getText())){
-            int pregunta=JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar");
-            if(pregunta == 0){
-                int id=Integer.parseInt(txtIdCliente.getText());
+        if (!"".equals(txtIdCliente.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar");
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtIdCliente.getText());
                 client.EliminarCliente(id);
                 LimpiarTabla();
                 LimpiarCliente();
                 ListarCliente();
-                
+
             }
         }
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
+
+    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(txtIdCliente.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+
+            if (!"".equals(txtDniCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText()) || !"".equals(txtDireccionCliente.getText())) {
+                cl.setDni(Integer.parseInt(txtDniCliente.getText()));
+                cl.setNombre(txtNombreCliente.getText());
+                cl.setTelefono(Integer.parseInt(txtTelefonoCliente.getText()));
+                cl.setDireccion(txtDireccionCliente.getText());
+                cl.setRazon(txtRazonCliente.getText());
+                cl.setId(Integer.parseInt(txtIdCliente.getText()));
+                client.ModificarCliente(cl);
+                LimpiarTabla();
+                LimpiarCliente();
+                ListarCliente();
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos estan vacions");;
+            }
+               
+        }
+    }//GEN-LAST:event_btnEditarClienteActionPerformed
+
+    private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
+        // TODO add your handling code here:
+        LimpiarCliente();
+        
+    }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1261,7 +1302,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefonoProveedor;
     // End of variables declaration//GEN-END:variables
 
-    private void LimpiarCliente(){
+    private void LimpiarCliente() {
         txtIdCliente.setText("");
         txtDniCliente.setText("");
         txtNombreCliente.setText("");
@@ -1269,6 +1310,5 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionCliente.setText("");
         txtRazonCliente.setText("");
     }
-
 
 }
