@@ -7,12 +7,12 @@ public class Productos {
     private String nombre;
     private String proveedor;
     private int stock;
-    private float precio;
+    private Double precio;
 
     public Productos() {
     }
 
-    public Productos(int id, String codigo, String nombre, String proveedor, int stock, float precio) {
+    public Productos(int id, String codigo, String nombre, String proveedor, int stock, Double precio) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -61,11 +61,11 @@ public class Productos {
         this.stock = stock;
     }
 
-    public float getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
     
