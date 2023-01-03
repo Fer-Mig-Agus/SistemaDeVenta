@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/Conexion.java</file>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/login.java</file>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Vista/Login.java</file>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/LoginDAO.java</file>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/sistemaventa/SistemaVenta.java</file>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/Proveedor.java</file>
+            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/Productos.java</file>
+            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/ProductosDAO.java</file>
+            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/ClienteDAO.java</file>
             <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Vista/Sistema.java</file>
-            <file>file:/C:/Desarrollo%20WEB/Proyectos%20Java/SistemaVenta/src/Modelo/ProveedorDAO.java</file>
         </group>
     </open-files>
 </project-private>
