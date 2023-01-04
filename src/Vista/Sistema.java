@@ -39,6 +39,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -48,7 +50,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author usuariopc
  */
 public class Sistema extends javax.swing.JFrame {
-
+    
     Cliente cl = new Cliente();
     ClienteDAO client = new ClienteDAO();
     Proveedor pr = new Proveedor();
@@ -59,13 +61,13 @@ public class Sistema extends javax.swing.JFrame {
     VentaDAO Vdao = new VentaDAO();
     Detalle Dv = new Detalle();
     Config conf = new Config();
-    Eventos event=new Eventos();
+    Eventos event = new Eventos();
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel tmp = new DefaultTableModel();
-
+    
     int item;
     double Totalpagar = 0.0;
-
+    
     public Sistema() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -81,9 +83,9 @@ public class Sistema extends javax.swing.JFrame {
         txtIdVenta.setVisible(false);
         txtIdConfig.setVisible(false);
         ListarConfig();
-
+        
     }
-
+    
     public void ListarCliente() {
         List<Cliente> ListaCl = client.ListaCliente();
         modelo = (DefaultTableModel) TableCliente.getModel();
@@ -95,12 +97,12 @@ public class Sistema extends javax.swing.JFrame {
             ob[3] = ListaCl.get(i).getTelefono();
             ob[4] = ListaCl.get(i).getDireccion();
             ob[5] = ListaCl.get(i).getRazon();
-
+            
             modelo.addRow(ob);
         }
         TableCliente.setModel(modelo);
     }
-
+    
     public void ListarProveedor() {
         List<Proveedor> ListaPr = PrDao.ListarProveedor();
         modelo = (DefaultTableModel) TableProveedor.getModel();
@@ -112,12 +114,12 @@ public class Sistema extends javax.swing.JFrame {
             ob[3] = ListaPr.get(i).getTelefono();
             ob[4] = ListaPr.get(i).getDireccion();
             ob[5] = ListaPr.get(i).getRazon();
-
+            
             modelo.addRow(ob);
         }
         TableProveedor.setModel(modelo);
     }
-
+    
     public void ListarProductos() {
         List<Productos> ListaPro = proDao.ListarProductos();
         modelo = (DefaultTableModel) TableProducto.getModel();
@@ -129,12 +131,27 @@ public class Sistema extends javax.swing.JFrame {
             ob[3] = ListaPro.get(i).getProveedor();
             ob[4] = ListaPro.get(i).getStock();
             ob[5] = ListaPro.get(i).getPrecio();
-
+            
             modelo.addRow(ob);
         }
         TableProducto.setModel(modelo);
     }
-
+    
+    public void ListarVentas() {
+        List<Venta> ListarVenta = Vdao.ListarVentas();
+        modelo = (DefaultTableModel) TableInformeVentas.getModel();
+        Object[] ob = new Object[6];
+        for (int i = 0; i < ListarVenta.size(); i++) {
+            ob[0] = ListarVenta.get(i).getId();
+            ob[1] = ListarVenta.get(i).getCliente();
+            ob[2] = ListarVenta.get(i).getVendedor();
+            ob[3] = ListarVenta.get(i).getTotal();
+            
+            modelo.addRow(ob);
+        }
+        TableInformeVentas.setModel(modelo);
+    }
+    
     public void ListarConfig() {
         conf = proDao.BuscarDatos();
         txtIdConfig.setText("" + conf.getId());
@@ -144,7 +161,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionConfig.setText("" + conf.getDireccion());
         txtRazonConfig.setText("" + conf.getRazon());
     }
-
+    
     public void LimpiarTabla() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);;
@@ -255,7 +272,7 @@ public class Sistema extends javax.swing.JFrame {
         txtIdPro = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        TableVentas = new javax.swing.JTable();
+        TableInformeVentas = new javax.swing.JTable();
         btnPdfVentas = new javax.swing.JButton();
         txtIdVenta = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -1210,7 +1227,7 @@ public class Sistema extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Productos", jPanel6);
 
-        TableVentas.setModel(new javax.swing.table.DefaultTableModel(
+        TableInformeVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1218,15 +1235,25 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "CLIENTE", "VENDEDOR", "TOTAL"
             }
         ));
-        jScrollPane5.setViewportView(TableVentas);
-        if (TableVentas.getColumnModel().getColumnCount() > 0) {
-            TableVentas.getColumnModel().getColumn(0).setPreferredWidth(20);
-            TableVentas.getColumnModel().getColumn(1).setPreferredWidth(60);
-            TableVentas.getColumnModel().getColumn(2).setPreferredWidth(60);
-            TableVentas.getColumnModel().getColumn(3).setPreferredWidth(60);
+        TableInformeVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableInformeVentasMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(TableInformeVentas);
+        if (TableInformeVentas.getColumnModel().getColumnCount() > 0) {
+            TableInformeVentas.getColumnModel().getColumn(0).setPreferredWidth(20);
+            TableInformeVentas.getColumnModel().getColumn(1).setPreferredWidth(60);
+            TableInformeVentas.getColumnModel().getColumn(2).setPreferredWidth(60);
+            TableInformeVentas.getColumnModel().getColumn(3).setPreferredWidth(60);
         }
 
         btnPdfVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pdf.png"))); // NOI18N
+        btnPdfVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPdfVentasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1438,16 +1465,16 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnActualizarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConfigActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtRucConfig.getText()) || !"".equals(txtNombreConfig.getText()) || !"".equals(txtTelefonoConfig.getText()) || !"".equals(txtDireccionConfig.getText()) || !"".equals(txtRazonConfig.getText())) {
-                conf.setRuc(Integer.parseInt(txtRucConfig.getText()));
-                conf.setNombre(txtNombreConfig.getText());
-                conf.setTelefono(Integer.parseInt(txtTelefonoConfig.getText()));
-                conf.setDireccion(txtDireccionConfig.getText());
-                conf.setRazon(txtRazonConfig.getText());
-                conf.setId(Integer.parseInt(txtIdConfig.getText()));
-                proDao.ModificarDatos(conf);
-                JOptionPane.showMessageDialog(null, "Datos de la empresa Modificado");
-                ListarConfig();
+        if (!"".equals(txtRucConfig.getText()) && !"".equals(txtNombreConfig.getText()) && !"".equals(txtTelefonoConfig.getText()) && !"".equals(txtDireccionConfig.getText()) && !"".equals(txtRazonConfig.getText())) {
+            conf.setRuc(Integer.parseInt(txtRucConfig.getText()));
+            conf.setNombre(txtNombreConfig.getText());
+            conf.setTelefono(Integer.parseInt(txtTelefonoConfig.getText()));
+            conf.setDireccion(txtDireccionConfig.getText());
+            conf.setRazon(txtRazonConfig.getText());
+            conf.setId(Integer.parseInt(txtIdConfig.getText()));
+            proDao.ModificarDatos(conf);
+            JOptionPane.showMessageDialog(null, "Datos de la empresa Modificado");
+            ListarConfig();
         } else {
             JOptionPane.showMessageDialog(null, "Campos Vacios");
         }
@@ -1463,7 +1490,7 @@ public class Sistema extends javax.swing.JFrame {
             client.registrarCliente(cl);
             LimpiarTabla();
             ListarCliente();
-
+            
             JOptionPane.showMessageDialog(null, "Cliente Registrado");
             LimpiarCliente();
         } else {
@@ -1499,7 +1526,7 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarTabla();
                 LimpiarCliente();
                 ListarCliente();
-
+                
             }
         }
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
@@ -1509,7 +1536,7 @@ public class Sistema extends javax.swing.JFrame {
         if ("".equals(txtIdCliente.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
-
+            
             if (!"".equals(txtDniCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText()) || !"".equals(txtDireccionCliente.getText())) {
                 cl.setDni(Integer.parseInt(txtDniCliente.getText()));
                 cl.setNombre(txtNombreCliente.getText());
@@ -1525,7 +1552,7 @@ public class Sistema extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos estan vacios");;
             }
-
+            
         }
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
@@ -1564,7 +1591,7 @@ public class Sistema extends javax.swing.JFrame {
     private void TableProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProveedorMouseClicked
         // TODO add your handling code here:
         int fila = TableProveedor.rowAtPoint(evt.getPoint());
-
+        
         txtIdProveedor.setText(TableProveedor.getValueAt(fila, 0).toString());
         txtRucProveedor.setText(TableProveedor.getValueAt(fila, 1).toString());
         txtNombreProveedor.setText(TableProveedor.getValueAt(fila, 2).toString());
@@ -1605,9 +1632,9 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarTabla();
                 ListarProveedor();
                 LimpiarProveedor();
-
+                
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         }
@@ -1652,7 +1679,7 @@ public class Sistema extends javax.swing.JFrame {
     private void TableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProductoMouseClicked
         // TODO add your handling code here:
         int fila = TableProducto.rowAtPoint(evt.getPoint());
-
+        
         txtIdPro.setText(TableProducto.getValueAt(fila, 0).toString());
         txtCodigoPro.setText(TableProducto.getValueAt(fila, 1).toString());
         txtDesPro.setText(TableProducto.getValueAt(fila, 2).toString());
@@ -1672,7 +1699,7 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarTabla();
                 ListarProductos();
                 LimpiarProductos();
-
+                
             }
         }
 
@@ -1765,7 +1792,7 @@ public class Sistema extends javax.swing.JFrame {
                     txtCodigoVenta.requestFocus();
                 } else {
                     JOptionPane.showMessageDialog(null, "Stock no Disponible");
-
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Ingrese cantidad");
@@ -1793,7 +1820,7 @@ public class Sistema extends javax.swing.JFrame {
                     txtDireccionCV.setText("" + cl.getDireccion());
                     txtRazonCV.setText("" + cl.getRazon());
                 } else {
-
+                    
                     LimpiarVentaCliente();
                     JOptionPane.showMessageDialog(null, "Cliente No existe");
                 }
@@ -1801,7 +1828,7 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarVentaCliente();
                 JOptionPane.showMessageDialog(null, "Ingrese Cliente");
             }
-
+            
         }
     }//GEN-LAST:event_txtRucVentaKeyPressed
 
@@ -1817,20 +1844,23 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarTableVenta();
                 LimpiarVentaCliente();
                 LimpiarVenta();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Debes buscar un cliente");
             }
-
-        }else{
+            
+        } else {
             JOptionPane.showMessageDialog(null, "No hay productos cargados");
         }
-
+        
 
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
         // TODO add your handling code here:
+        
         jTabbedPane1.setSelectedIndex(4);
+        LimpiarTabla();
+        ListarVentas();
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void txtCodigoVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoVentaKeyTyped
@@ -1855,7 +1885,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void txtRucVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRucVentaKeyTyped
         // TODO add your handling code here:
-        event.textKeyPress(evt);
+        event.numberKeyPress(evt);
     }//GEN-LAST:event_txtRucVentaKeyTyped
 
     private void txtNombreClienteVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreClienteVentaKeyTyped
@@ -1963,6 +1993,27 @@ public class Sistema extends javax.swing.JFrame {
         event.textKeyPress(evt);
     }//GEN-LAST:event_txtRazonConfigKeyTyped
 
+    private void TableInformeVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableInformeVentasMouseClicked
+        // TODO add your handling code here:
+        int fila = TableInformeVentas.rowAtPoint(evt.getPoint());
+        txtIdVenta.setText(TableInformeVentas.getValueAt(fila, 0).toString());
+        
+    }//GEN-LAST:event_TableInformeVentasMouseClicked
+
+    private void btnPdfVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfVentasActionPerformed
+        // TODO add your handling code here:
+        try {
+            int id = Integer.parseInt(txtIdVenta.getText());
+            File file = new File("src/pdf/venta " + id + ".pdf");
+            Desktop.getDesktop().open(file);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_btnPdfVentasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2002,10 +2053,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel LabelTotal;
     private javax.swing.JLabel LabelVendedor;
     private javax.swing.JTable TableCliente;
+    private javax.swing.JTable TableInformeVentas;
     private javax.swing.JTable TableProducto;
     private javax.swing.JTable TableProveedor;
     private javax.swing.JTable TableVenta;
-    private javax.swing.JTable TableVentas;
     private javax.swing.JButton btnActualizarConfig;
     private javax.swing.JButton btnActualizarProveedor;
     private javax.swing.JButton btnClientes;
@@ -2120,7 +2171,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionCliente.setText("");
         txtRazonCliente.setText("");
     }
-
+    
     private void LimpiarProveedor() {
         txtIdProveedor.setText("");
         txtRucProveedor.setText("");
@@ -2129,16 +2180,16 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionProveedor.setText("");
         txtRazonProveedor.setText("");
     }
-
+    
     private void LimpiarProductos() {
         txtIdProveedor.setText("");
         txtCodigoPro.setText("");
         txtDesPro.setText("");
         txtCantPro.setText("");
         txtPrecioPro.setText("");
-
+        
     }
-
+    
     private void TotalPagar() {
         Totalpagar = 0.00;
         int numFila = TableVenta.getRowCount();
@@ -2148,7 +2199,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         LabelTotal.setText(String.format("%.2f", Totalpagar));
     }
-
+    
     private void LimpiarVenta() {
         txtCodigoVenta.setText("");
         txtDescripcionVenta.setText("");
@@ -2157,7 +2208,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPrecioVenta.setText("");
         txtIdVenta.setText("");
     }
-
+    
     private void LimpiarVentaCliente() {
         txtRucVenta.setText("");
         txtNombreClienteVenta.setText("");
@@ -2166,7 +2217,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionCV.setText("");
         txtRazonCV.setText("");
     }
-
+    
     private void RegistrarVenta() {
         String cliente = txtNombreClienteVenta.getText();
         String vendedor = LabelVendedor.getText();
@@ -2175,9 +2226,9 @@ public class Sistema extends javax.swing.JFrame {
         V.setVendedor(vendedor);
         V.setTotal(monto);
         Vdao.RegistrarVenta(V);
-
+        
     }
-
+    
     private void RegistrarDetalle() {
         int id = Vdao.IdVenta();
         for (int i = 0; i < TableVenta.getRowCount(); i++) {
@@ -2189,10 +2240,10 @@ public class Sistema extends javax.swing.JFrame {
             Dv.setPrecio(precio);
             Dv.setId(id);
             Vdao.RegistrarDetalle(Dv);
-
+            
         }
     }
-
+    
     private void ActualizarStock() {
         for (int i = 0; i < TableVenta.getRowCount(); i++) {
             String cod = TableVenta.getValueAt(i, 0).toString();
@@ -2202,7 +2253,7 @@ public class Sistema extends javax.swing.JFrame {
             Vdao.ActualizarStock(StockActual, cod);
         }
     }
-
+    
     private void LimpiarTableVenta() {
         tmp = (DefaultTableModel) TableVenta.getModel();
         int filas = TableVenta.getRowCount();
@@ -2210,7 +2261,7 @@ public class Sistema extends javax.swing.JFrame {
             tmp.removeRow(0);
         }
     }
-
+    
     private void pdf() {
         try {
             int id = Vdao.IdVenta();
@@ -2221,45 +2272,45 @@ public class Sistema extends javax.swing.JFrame {
             PdfWriter.getInstance(doc, archivo);
             doc.open();
             Image img = Image.getInstance("src/img/logo_pdf.png");
-
+            
             Paragraph fecha = new Paragraph();
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
             fecha.add(Chunk.NEWLINE);
             Date date = new Date();
             fecha.add("Factura: " + id + "\n" + "Fecha: " + new SimpleDateFormat("dd-mm-yyyy").format(date) + "\n\n");
-
+            
             PdfPTable Encabezado = new PdfPTable(4);
             Encabezado.setWidthPercentage(100);
             Encabezado.getDefaultCell().setBorder(0);
             float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
             Encabezado.setWidths(ColumnaEncabezado);
             Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
-
+            
             Encabezado.addCell(img);
-
+            
             String ruc = txtRucConfig.getText();
             String nom = txtNombreConfig.getText();
             String tel = txtTelefonoConfig.getText();
             String dir = txtDireccionConfig.getText();
             String ra = txtRazonConfig.getText();
-
+            
             Encabezado.addCell("");
             Encabezado.addCell("Ruc: " + ruc + "\nNombre: " + nom + "\nTelefono: " + tel + "\nDireccion: " + dir + "\nRazon: " + ra);
             Encabezado.addCell(fecha);
             doc.add(Encabezado);
-
+            
             Paragraph cli = new Paragraph();
             cli.add(Chunk.NEWLINE);
             cli.add("Datos de los clientes: " + "\n\n");
             doc.add(cli);
-
+            
             PdfPTable tablacli = new PdfPTable(4);
             tablacli.setWidthPercentage(100);
             tablacli.getDefaultCell().setBorder(0);
             float[] ColumnaCli = new float[]{20f, 50f, 30f, 40f};
             tablacli.setWidths(ColumnaCli);
             tablacli.setHorizontalAlignment(Element.ALIGN_LEFT);
-
+            
             PdfPCell cl1 = new PdfPCell(new Phrase("Dni/Ruc", negrita));
             PdfPCell cl2 = new PdfPCell(new Phrase("Nombre", negrita));
             PdfPCell cl3 = new PdfPCell(new Phrase("Telefono", negrita));
@@ -2268,7 +2319,7 @@ public class Sistema extends javax.swing.JFrame {
             cl2.setBorder(0);
             cl3.setBorder(0);
             cl4.setBorder(0);
-
+            
             tablacli.addCell(cl1);
             tablacli.addCell(cl2);
             tablacli.addCell(cl3);
@@ -2277,7 +2328,7 @@ public class Sistema extends javax.swing.JFrame {
             tablacli.addCell(txtNombreClienteVenta.getText());
             tablacli.addCell(txtTelefonoCV.getText());
             tablacli.addCell(txtDireccionCV.getText());
-
+            
             doc.add(tablacli);
 
             //PRODUCTOS
@@ -2287,7 +2338,7 @@ public class Sistema extends javax.swing.JFrame {
             float[] ColumnaPro = new float[]{10f, 50f, 15f, 20f};
             tablapro.setWidths(ColumnaPro);
             tablapro.setHorizontalAlignment(Element.ALIGN_LEFT);
-
+            
             PdfPCell pro1 = new PdfPCell(new Phrase("Cantidad", negrita));
             PdfPCell pro2 = new PdfPCell(new Phrase("Descripcion", negrita));
             PdfPCell pro3 = new PdfPCell(new Phrase("Precio U", negrita));
@@ -2300,40 +2351,40 @@ public class Sistema extends javax.swing.JFrame {
             pro2.setBackgroundColor(BaseColor.GRAY);
             pro3.setBackgroundColor(BaseColor.GRAY);
             pro4.setBackgroundColor(BaseColor.GRAY);
-
+            
             tablapro.addCell(pro1);
             tablapro.addCell(pro2);
             tablapro.addCell(pro3);
             tablapro.addCell(pro4);
-
+            
             for (int i = 0; i < TableVenta.getRowCount(); i++) {
-
+                
                 String producto = TableVenta.getValueAt(i, 1).toString();
                 String cantidad = TableVenta.getValueAt(i, 2).toString();
                 String precio = TableVenta.getValueAt(i, 3).toString();
                 String total = TableVenta.getValueAt(i, 4).toString();
-
+                
                 tablapro.addCell(cantidad);
                 tablapro.addCell(producto);
                 tablapro.addCell(precio);
                 tablapro.addCell(total);
             }
-
+            
             doc.add(tablapro);
-
+            
             Paragraph info = new Paragraph();
             info.add(Chunk.NEWLINE);
             info.add("Total a Pagar: " + Totalpagar);
             info.setAlignment(Element.ALIGN_RIGHT);
             doc.add(info);
-
+            
             Paragraph Firma = new Paragraph();
             Firma.add(Chunk.NEWLINE);
             Firma.add("Cancelacion y Firma\n");
             Firma.add("____________________");
             Firma.setAlignment(Element.ALIGN_CENTER);
             doc.add(Firma);
-
+            
             Paragraph mensaje = new Paragraph();
             mensaje.add(Chunk.NEWLINE);
             mensaje.add("Gracias por su compra");
@@ -2346,5 +2397,5 @@ public class Sistema extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }
-
+    
 }
