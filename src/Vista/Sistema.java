@@ -18,16 +18,21 @@ import Reportes.Excel;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sun.glass.events.KeyEvent;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,7 +75,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionCV.setVisible(false);
         txtRazonCV.setVisible(false);
         txtIdVenta.setVisible(false);
-        pdf();
+        
 
     }
 
@@ -1627,7 +1632,12 @@ public class Sistema extends javax.swing.JFrame {
         RegistrarVenta();
         RegistrarDetalle();
         ActualizarStock();
+        pdf();
+        JOptionPane.showMessageDialog(null, "Venta Exitosa");
         LimpiarTableVenta();
+        LimpiarVentaCliente();
+        LimpiarVenta();
+        
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
@@ -1828,6 +1838,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPrecioVenta.setText("");
         txtIdVenta.setText("");
     }
+    
 
     private void LimpiarVentaCliente() {
         txtRucVenta.setText("");
@@ -1904,6 +1915,7 @@ public class Sistema extends javax.swing.JFrame {
             float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
             Encabezado.setWidths(ColumnaEncabezado);
             Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
             Encabezado.addCell(img);
             
             String ruc="123";
@@ -1917,11 +1929,107 @@ public class Sistema extends javax.swing.JFrame {
             Encabezado.addCell(fecha);
             doc.add(Encabezado);
             
+            Paragraph cli=new Paragraph();
+            cli.add(Chunk.NEWLINE);
+            cli.add("Datos de los clientes"+"\n\n");
+            doc.add(cli);
             
+            PdfPTable tablacli=new PdfPTable(4);
+            tablacli.setWidthPercentage(100);
+            tablacli.getDefaultCell().setBorder(0);
+            float[] ColumnaCli = new float[]{20f, 50f, 30f, 40f};
+            tablacli.setWidths(ColumnaCli);
+            tablacli.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
+            PdfPCell cl1 = new PdfPCell(new Phrase("Dni/Ruc",negrita));
+            PdfPCell cl2 = new PdfPCell(new Phrase("Nombre",negrita));
+            PdfPCell cl3 = new PdfPCell(new Phrase("Telefono",negrita));
+            PdfPCell cl4 = new PdfPCell(new Phrase("Dirección",negrita));
+            cl1.setBorder(0);
+            cl2.setBorder(0);
+            cl3.setBorder(0);
+            cl4.setBorder(0);
+            
+            tablacli.addCell(cl1);
+            tablacli.addCell(cl2);
+            tablacli.addCell(cl3);
+            tablacli.addCell(cl4);
+            tablacli.addCell(txtRucVenta.getText());
+            tablacli.addCell(txtNombreClienteVenta.getText());
+            tablacli.addCell(txtTelefonoCV.getText());
+            tablacli.addCell(txtDireccionCV.getText());
+            
+            doc.add(tablacli);
+            
+            //PRODUCTOS
+            
+            PdfPTable tablapro=new PdfPTable(4);
+            tablapro.setWidthPercentage(100);
+            tablapro.getDefaultCell().setBorder(0);
+            float[] ColumnaPro = new float[]{10f, 50f, 15f, 20f};
+            tablapro.setWidths(ColumnaPro);
+            tablapro.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
+            PdfPCell pro1 = new PdfPCell(new Phrase("Cantidad",negrita));
+            PdfPCell pro2 = new PdfPCell(new Phrase("Descripcion",negrita));
+            PdfPCell pro3 = new PdfPCell(new Phrase("Precio U",negrita));
+            PdfPCell pro4 = new PdfPCell(new Phrase("Precio T",negrita));
+            pro1.setBorder(0);
+            pro2.setBorder(0);
+            pro3.setBorder(0);
+            pro4.setBorder(0);
+            pro1.setBackgroundColor(BaseColor.GRAY);
+            pro2.setBackgroundColor(BaseColor.GRAY);
+            pro3.setBackgroundColor(BaseColor.GRAY);
+            pro4.setBackgroundColor(BaseColor.GRAY);
+            
+            tablapro.addCell(pro1);
+            tablapro.addCell(pro2);
+            tablapro.addCell(pro3);
+            tablapro.addCell(pro4);
+            
+            for(int i=0;i<TableVenta.getRowCount();i++){
+                
+                String producto=TableVenta.getValueAt(i,1).toString();
+                String cantidad=TableVenta.getValueAt(i,2).toString();
+                String precio=TableVenta.getValueAt(i,3).toString();
+                String total=TableVenta.getValueAt(i,4).toString();
+                
+                
+                
+                tablapro.addCell(cantidad);
+                tablapro.addCell(producto);
+                tablapro.addCell(precio);
+                tablapro.addCell(total);
+            }
+            
+            doc.add(tablapro);
+            
+            Paragraph info = new Paragraph();
+            info.add(Chunk.NEWLINE);
+            info.add("Total a Pagar´"+Totalpagar);
+            info.setAlignment(Element.ALIGN_RIGHT);
+            doc.add(info);
+            
+            
+            
+            Paragraph Firma = new Paragraph();
+            Firma.add(Chunk.NEWLINE);
+            Firma.add("Cancelacion y Firma\n");
+            Firma.add("____________________");
+            Firma.setAlignment(Element.ALIGN_CENTER);
+            doc.add(Firma);
+            
+            Paragraph mensaje = new Paragraph();
+            mensaje.add(Chunk.NEWLINE);
+            mensaje.add("Gracias por su compra");
+            mensaje.setAlignment(Element.ALIGN_CENTER);
+            doc.add(mensaje);
             doc.close();
             archivo.close();
-        } catch (Exception e) {
-
+            Desktop.getDesktop().open(file);
+        } catch (DocumentException | IOException e) {
+            System.out.println(e.toString());
         }
     }
 
