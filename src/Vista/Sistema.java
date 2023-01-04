@@ -1919,8 +1919,9 @@ public class Sistema extends javax.swing.JFrame {
 
     private void pdf(){
         try {
+            int id=Vdao.IdVenta();
             FileOutputStream archivo;
-            File file = new File("src/pdf/venta.pdf");
+            File file = new File("src/pdf/venta "+id+".pdf");
             archivo = new FileOutputStream(file);
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
@@ -1931,7 +1932,7 @@ public class Sistema extends javax.swing.JFrame {
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
             fecha.add(Chunk.NEWLINE);
             Date date = new Date();
-            fecha.add("Factura: 1\n" + "Fecha :" + new SimpleDateFormat("dd-mm-yyyy").format(date) + "\n\n");
+            fecha.add("Factura: "+id+"\n" + "Fecha: " + new SimpleDateFormat("dd-mm-yyyy").format(date) + "\n\n");
 
             PdfPTable Encabezado = new PdfPTable(4);
             Encabezado.setWidthPercentage(100);
@@ -1942,11 +1943,11 @@ public class Sistema extends javax.swing.JFrame {
             
             Encabezado.addCell(img);
             
-            String ruc="123";
-            String nom="vida informtico";
-            String tel="2341234";
-            String dir="damacio";
-            String ra="vida";
+            String ruc=txtRucConfig.getText();
+            String nom=txtNombreConfig.getText();
+            String tel=txtTelefonoConfig.getText();
+            String dir=txtDireccionConfig.getText();
+            String ra=txtRazonConfig.getText();
             
             Encabezado.addCell("");
             Encabezado.addCell("Ruc: "+ruc+"\nNombre: "+nom+"\nTelefono: "+tel+"\nDireccion: "+dir+"\nRazon: "+ra);
@@ -1955,7 +1956,7 @@ public class Sistema extends javax.swing.JFrame {
             
             Paragraph cli=new Paragraph();
             cli.add(Chunk.NEWLINE);
-            cli.add("Datos de los clientes"+"\n\n");
+            cli.add("Datos de los clientes: "+"\n\n");
             doc.add(cli);
             
             PdfPTable tablacli=new PdfPTable(4);
@@ -2031,7 +2032,7 @@ public class Sistema extends javax.swing.JFrame {
             
             Paragraph info = new Paragraph();
             info.add(Chunk.NEWLINE);
-            info.add("Total a Pagar´"+Totalpagar);
+            info.add("Total a Pagar: "+Totalpagar);
             info.setAlignment(Element.ALIGN_RIGHT);
             doc.add(info);
             
