@@ -212,14 +212,14 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="160" y="0" width="700" height="170"/>
+          <AbsoluteConstraints x="160" y="0" width="700" height="200"/>
         </Constraint>
       </Constraints>
     </Component>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="160" y="190" width="700" height="430"/>
+          <AbsoluteConstraints x="160" y="170" width="700" height="430"/>
         </Constraint>
       </Constraints>
 
@@ -247,7 +247,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="684" max="32767" attributes="0"/>
+                      <EmptySpace pref="685" max="32767" attributes="0"/>
                       <Component id="txtIDPro" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -266,7 +266,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtCodigoVenta" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
@@ -671,7 +671,7 @@
                               <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane2" pref="400" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="402" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -715,7 +715,7 @@
                           <Component id="btnNuevoCliente" max="32767" attributes="0"/>
                           <Component id="btnEliminarCliente" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="106" max="32767" attributes="0"/>
+                      <EmptySpace pref="116" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" alignment="1" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -1016,7 +1016,7 @@
                           <Component id="btnNuevoProveedor" max="32767" attributes="0"/>
                           <Component id="btnEliminarProveedor" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="64" max="32767" attributes="0"/>
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1256,7 +1256,7 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" pref="483" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="485" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1303,12 +1303,12 @@
                                           <Component id="btnEditarPro" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="btnGuardarPro" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                                      <EmptySpace pref="33" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="btnEliminarPro" max="32767" attributes="0"/>
                                           <Component id="btnNuevoPro" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                                      <EmptySpace pref="80" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
@@ -1550,7 +1550,7 @@
                               <Component id="txtIdVenta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane5" pref="660" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" pref="662" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -1570,7 +1570,7 @@
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane5" pref="332" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" pref="342" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1698,7 +1698,7 @@
                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="107" max="32767" attributes="0"/>
+                      <EmptySpace pref="109" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1739,7 +1739,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       <Component id="btnActualizarConfig" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                      <EmptySpace pref="61" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
