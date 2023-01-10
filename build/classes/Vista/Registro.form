@@ -52,12 +52,10 @@
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtPass" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtPass" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                                   <Component id="cbxRol" alignment="0" pref="138" max="32767" attributes="0"/>
@@ -142,7 +140,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Iniciar"/>
+            <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarActionPerformed"/>

@@ -27,9 +27,10 @@ public class Login extends javax.swing.JFrame {
         String correo = txtCorreo.getText();
         String pass = String.valueOf(txtPass.getPassword());
         
-        if (!"".equals(correo) || !"".equals(pass)) {
+        
+        if (!"".equals(correo) && !"".equals(pass)) {
             
-            lg = login.log(correo, pass);
+            lg = login.log(correo,pass);
             if (lg.getCorreo() != null && lg.getPass() != null) {
                 Sistema sis = new Sistema(lg);
                 sis.setVisible(true);
@@ -37,6 +38,8 @@ public class Login extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Correo o Contraseña incorrecta");
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos son Obligatorios");
         }
     }
 

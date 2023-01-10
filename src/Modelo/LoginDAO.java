@@ -22,8 +22,8 @@ public class LoginDAO {
         try{
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
-            ps.setString(1, correo);
-            ps.setString(2, pass);
+            ps.setString(1,correo);
+            ps.setString(2,pass);
             rs=ps.executeQuery();
             if(rs.next()){
                 l.setId(rs.getInt("id"));

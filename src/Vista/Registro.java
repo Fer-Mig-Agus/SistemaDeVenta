@@ -34,8 +34,9 @@ public class Registro extends javax.swing.JFrame {
             lg.setPass(pass);
             lg.setRol(rol);
             login.Registrar(lg);
-            Login iniciar = new Login();
-            iniciar.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Usuario Guardado con exito");
+//            Login iniciar = new Login();
+//            iniciar.setVisible(true);
             dispose();
 
         }
@@ -90,7 +91,7 @@ public class Registro extends javax.swing.JFrame {
 
         btnIniciar.setBackground(new java.awt.Color(0, 0, 255));
         btnIniciar.setForeground(new java.awt.Color(255, 255, 255));
-        btnIniciar.setText("Iniciar");
+        btnIniciar.setText("Guardar");
         btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
@@ -122,11 +123,10 @@ public class Registro extends javax.swing.JFrame {
                             .addGap(37, 37, 37)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel10)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtCorreo)
-                                    .addComponent(txtPass))
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
+                                .addComponent(txtCorreo)
+                                .addComponent(txtPass)
                                 .addComponent(jLabel11)
                                 .addComponent(txtNombre)
                                 .addComponent(cbxRol, 0, 138, Short.MAX_VALUE)))))
